@@ -16,6 +16,13 @@ class MailSettings:
     SMTP_PASSWORD: str = os.getenv("SMTP_PASSWORD")
     FROM_EMAIL: str = os.getenv("FROM_EMAIL")
 
+    CLIENT_ID: str =  os.getenv("GMAIL_CLIENT_ID")
+    CLIENT_SECRET: str = os.getenv("GMAIL_CLIENT_SECRET")
+
+    REDIRECT_URI: str = "http://localhost:8000/gmail/callback"
+    GOOGLE_AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
+    GOOGLE_TOKEN_URL = "https://oauth2.googleapis.com/token"
+    GMAIL_API_URL = "https://www.googleapis.com/gmail/v1/"
 
 redis_settings = RedisSettings()
 mail_settings = MailSettings()
