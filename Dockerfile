@@ -9,4 +9,4 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 COPY ./app .
 
-CMD ["sh","start_fastapi.sh"]
+CMD ["sh","start_fastapi.sh"]f

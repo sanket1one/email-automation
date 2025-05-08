@@ -1,0 +1,91 @@
+name: EMAIL_MESSENGER_BACKEDND_API_PIPELINE
+
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'app/**'
+      - '.github/workflows/pipeline-backend.yml'
+      - 'docker-compose.yml'
+  
+
+  jobs:
+    compile:
+      runs-on: ubuntu-latest
+      name: Compile project
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+        
+        - name: setup fastApi
+          uses: actions/setup-python@v4
+          with:
+            python-version: '3.11'
+            ddistribution: 'x86_64'
+        
+        - name: install dependencies
+          run: |
+            python -m pip install --upgrade pip
+            pip install -r app/requirements.txt  
+
+    unit-test:
+      runs-on: ubuntu-latest
+      name: Unit tests
+      steps: 
+        - name: Checkout code
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+        
+        - name: setup fastApi
+          uses: actions/setup-python@v4
+          with:
+            python-version: '3.11'
+            ddistribution: 'x86_64'
+             
+        - name: run unit tests
+          run: |
+            pytest app/tests/unit_tests/
+    
+    build:
+      runs-one: ubuntu-latest
+      name: build backend
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+        
+        - name: setup fastApi
+          uses: actions/setup-python@v4
+          with:
+            python-version: '3.11'
+            ddistribution: 'x86_64'
+        
+        - name: build docker image
+          run: |
+            docker build -t email-messenger-backend app/
+
+    build-image:
+      runs-on: ubuntu-latest
+      name: Build docker image
+      needs: [unit-test]
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+        
+        - name: setup fastApi
+          uses: actions/setup-python@v4
+          with:
+            python-version: '3.11'
+            ddistribution: 'x86_64'
+        
+        - name: build docker image
+          run: |
+            docker build -t email-messenger-backend app/
