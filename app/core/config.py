@@ -1,9 +1,21 @@
+import logging
+
+# Configure root logger (adjust as needed)
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+)
+logger = logging.getLogger(__name__)
+
 import os 
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
 
 load_dotenv()
 
+
+
+# Load environment variables from .env file
 class RedisSettings(BaseSettings):
     REDIS_HOST: str = os.getenv("REDIS_HOST","redis")
     REDIS_PORT: int = os.getenv("REDIS_PORT",6379)

@@ -59,7 +59,7 @@
     OAUTH2_TOKEN_URI=https://oauth2.googleapis.com/token
     ```
 
-3. ** Running project Locally **
+3. **Running project Locally**
 
     All the configurating in currated in the `start_fastapi.sh` file
 
@@ -68,12 +68,17 @@
     sh start_fastapi.sh
     ```
 
-4. ** Running project using Docker ** 
+4. **Running project using Docker** 
 
     Build and run the Docker image:
 
     ```bash
     docker-compose up -d --build
+    ```
+5. **Running Local Recepient Server[Testing]** 
+
+    ```bash
+    python -m aiosmtpd -n -l localhost:8025
     ```
 
 ## API Endpoints
